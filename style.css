@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000; /* Fundo preto puro da imagem */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif; /* Fonte igual à imagem */
+}
+
+/* Contêiner que segura o botão e o gradiente */
+.button-box {
+    position: relative;
+    width: 380px;  /* Dimensões proporcionais à imagem */
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Corta o gradiente para que ele fique apenas na área do botão */
+    border-radius: 20px; /* Cantos arredondados idênticos */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); /* Sombra suave para profundidade */
+}
+
+/* O gradiente cônico que vai girar continuamente */
+.gradient-background {
+    position: absolute;
+    width: 200%;  /* O gradiente é maior para cobrir o botão ao girar */
+    height: 200%;
+    /* Gradiente cônico com as cores idênticas da imagem */
+    background: conic-gradient(
+        #0ff0b3 0%,   /* Ciano claro */
+        #00ff1e 15%,  /* Verde vibrante */
+        #ff003c 30%,  /* Vermelho vibrante */
+        #ff3cfc 45%,  /* Rosa vibrante */
+        #3cffff 60%,  /* Azul claro */
+        #0ff0b3 75%,  /* Ciano de volta */
+        #0ff0b3 100%  /* Fecha o círculo */
+    );
+    filter: blur(5px); /* Suaviza as cores do gradiente */
+    
+    /* A animação contínua de giro */
+    animation: rotateGradient 4s linear infinite;
+    z-index: 1; /* Fica atrás do botão */
+    
+    /* Inicialmente esconde o gradiente */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Define a animação de rotação */
+@keyframes rotateGradient {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* O botão real (com fundo preto e texto) */
+#animatedButton {
+    position: relative;
+    width: calc(100% - 10px); /* Cria a "máscara": o botão é menor que o contêiner */
+    height: calc(100% - 10px);
+    background-color: #1a1a1a; /* Fundo cinza muito escuro (quase preto) para o botão */
+    color: #FFFFFF; /* Texto branco puro */
+    border: none; /* Sem borda padrão */
+    border-radius: 16px; /* Cantos arredondados internos */
+    font-size: 32px; /* Tamanho do texto proporcional */
+    font-weight: 400;
+    text-transform: capitalize; /* Garante o formato do texto */
+    cursor: pointer;
+    outline: none;
+    z-index: 2; /* Fica acima do gradiente */
+}
+
+/* Ativa a animação de cores ao passar o mouse (hover) */
+.button-box:hover .gradient-background {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Efeito de clique rápido (opcional, para UX) */
+#animatedButton:active {
+    transform: scale(0.98);
+}
